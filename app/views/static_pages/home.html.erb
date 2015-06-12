@@ -1,0 +1,133 @@
+<style>
+* {
+	padding:0;
+	margin: 0;
+	font-family: 'Open Sans', sans-serif;
+}
+
+#background-img {
+	position:absolute;
+	top:0px;
+	bottom:0px;
+	left:0px;
+	right:0px;
+	z-index:-5;
+	
+    background: url(/images/background.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#background {
+	position:absolute;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
+	z-index:-4;
+	
+	opacity: 0.3;
+	
+	background: #f5a623; /* Old browsers */
+	background: -moz-linear-gradient(top,  #f5a623 0%, #50c99f 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5a623), color-stop(100%,#50c99f)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #f5a623 0%,#50c99f 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #f5a623 0%,#50c99f 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #f5a623 0%,#50c99f 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #f5a623 0%,#50c99f 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5a623', endColorstr='#50c99f',GradientType=0 ); /* IE6-9 */
+	
+}
+
+#main {
+	position: absolute;
+	left:0;
+	right:0;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+	padding:20px;
+}
+
+#logo {
+	width:200px;
+	margin:30px;
+}
+
+#introducing {
+	color:white;
+	font-size:3.5em;
+	margin-bottom:10px;
+}
+
+#caption {
+	color:white;
+	font-size:1.5em;
+}
+
+#appstore {
+	width: 150px;
+	margin:40px;
+}
+
+#footer {
+	position:absolute;
+	bottom:0px;
+	left:0;
+	right:0;
+	text-align:center;
+	color:white;
+	height:56px;
+}
+
+#footer a {
+	color:white;
+	text-decoration:none;
+}
+
+#footer a:hover {
+	opacity:0.4;
+}
+
+@media (max-width: 640px) {
+	#logo {
+		width: 100px;
+	}
+	
+	#introducing {
+		font-size:1.7em;
+	}
+	
+	#caption {
+		font-size:1em;
+	}
+}
+
+</style>
+
+<div id="background-img"></div>
+
+<div id="background"></div>
+
+<div id="main" style="text-align:center;">
+	
+	<img src="/images/handshake_logo.png" id="logo" />
+
+	<div id="introducing">Introducing Handshake.</div>
+
+	<div id="caption">An easier way to meet people.</div>
+	
+	<a style="border:none" href="https://itunes.apple.com/us/app/handshake-contact-sharing/id932493587?mt=8&uo=4"><img id="appstore" src="http://upload.wikimedia.org/wikipedia/commons/1/11/Available_on_the_App_Store_(gray).png" /></a>
+	
+</div>
+
+<div id="footer">
+	
+	<a href="mailto:contact@gethandshakeapp.com">Contact Us</a> | <a href="/terms">Terms</a>
+	
+	<div style="font-size:0.8em;margin-top:6px">&copy; 2014 Handshake: Contact Sharing</div>
+	
+</div>
