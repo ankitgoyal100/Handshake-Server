@@ -9,7 +9,7 @@ module SearchHelper
     json.last_name user.last_name
     json.picture user.picture.url
     json.thumb user.picture.thumb.url
-    json.contacts user.contacts.length
+    json.contacts user.contacts.where.not(id: current_user.id).length
     json.mutual result[1]
     if current_user.contacts.include?(user)
       friendship = current_user.friendships.find_by(contact: user)
