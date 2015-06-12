@@ -17,6 +17,7 @@ module SearchHelper
       json.cards friendship.cards do |card|
         json_card(json, card)
       end
+      json.contact_updated friendship.updated_at
       json.request_sent false
       json.request_received false
     else
