@@ -51,7 +51,7 @@ class GroupsController < ApplicationController
     
     code = loop do
       random_code = rand(36**6).to_s(36)
-      break random_code unless Group.find_by_code(random_code)
+      break random_code unless Group.find_by_code(random_code) or random_code.length != 6
     end
     
     @group = Group.create(name: name, code: code)
