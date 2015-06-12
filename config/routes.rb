@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 
   get '/groups', to: 'groups#index'
   get '/groups/:id', to: 'groups#show'
+  get '/groups/find/:code', to: 'groups#find'
   get '/groups/:id/members', to: 'groups#members'
   post '/groups', to: 'groups#create'
   put '/groups/:id', to: 'groups#update'

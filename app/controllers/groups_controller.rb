@@ -14,6 +14,14 @@ class GroupsController < ApplicationController
     end
   end
   
+  def find
+    @group = Group.find_by_code(params[:code])
+    if @group == nil
+      @errors = [ 'Group not found' ]
+      render status: 404
+    end
+  end
+  
   def members  
     group = Group.find_by_id(params[:id])
     if group == nil or not group.users.include?(current_user)
