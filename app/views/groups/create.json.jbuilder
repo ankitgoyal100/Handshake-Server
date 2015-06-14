@@ -7,6 +7,5 @@ else
     json.updated_at @group.updated_at
     json.name @group.name
     json.code @group.code
-    json.members []
   end
 end
