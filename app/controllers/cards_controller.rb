@@ -32,20 +32,31 @@ class CardsController < ApplicationController
       return
     end
     
+    old_phones = []
+    old_emails = []
+    old_addresses = []
+    old_socials = []
+    
     # clear old phones, emails, addresses, and socials
-    @card.phones.each { |phone| @card.phones -= [phone] }
-    @card.emails.each { |email| @card.emails -= [email] }
-    @card.addresses.each { |address| @card.addresses -= [address] }
-    @card.socials.each { |social| @card.socials -= [social] }
+    @card.phones.each { |phone| old_phones << phone }
+    @card.emails.each { |email| old_emails << email }
+    @card.addresses.each { |address| old_addresses << address }
+    @card.socials.each { |social| old_socials << social }
     
     @card.assign_attributes(params.permit(:name, emails_attributes: [:address, :label], phones_attributes: [:number, :label, :country_code], addresses_attributes: [:street1, :street2, :city, :state, :zip, :country, :label], socials_attributes: [:username, :network]))
   
     @card.touch
-    if not @card.save
+    if not @card.valid?
       @errors = @card.errors.full_messages
       render status: 422
       return
     end
+    
+    @card.phones -= old_phones
+    @card.emails -= old_emails
+    @card.addresses -= old_addresses
+    @card.socials -= old_socials
+    @card.save
     
     # update friendships / create feed items
     
