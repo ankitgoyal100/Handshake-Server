@@ -15,7 +15,7 @@ class CardsController < ApplicationController
   end
   
   def create
-    @card = Card.new(params.permit(:name, emails_attributes: [:address, :label], phones_attributes: [:number, :label], addresses_attributes: [:street1, :street2, :city, :state, :zip, :country, :label], socials_attributes: [:username, :network]))
+    @card = Card.new(params.permit(:name, emails_attributes: [:address, :label], phones_attributes: [:number, :label, :country_code], addresses_attributes: [:street1, :street2, :city, :state, :zip, :country, :label], socials_attributes: [:username, :network]))
     @card.user = current_user
     if not @card.save
       @errors = @card.errors.full_messages
@@ -38,7 +38,7 @@ class CardsController < ApplicationController
     @card.addresses.each { |address| @card.addresses -= [address] }
     @card.socials.each { |social| @card.socials -= [social] }
     
-    @card.assign_attributes(params.permit(:name, emails_attributes: [:address, :label], phones_attributes: [:number, :label], addresses_attributes: [:street1, :street2, :city, :state, :zip, :country, :label], socials_attributes: [:username, :network]))
+    @card.assign_attributes(params.permit(:name, emails_attributes: [:address, :label], phones_attributes: [:number, :label, :country_code], addresses_attributes: [:street1, :street2, :city, :state, :zip, :country, :label], socials_attributes: [:username, :network]))
   
     @card.touch
     if not @card.save
@@ -55,7 +55,7 @@ class CardsController < ApplicationController
       friendship.touch
       friendship.save
       
-      feed_items << FeedItem.new(user: friendship.user, contact: contact, item_type: "card_updated")
+      feed_items << FeedItem.new(user: friendship.user, contact: current_user, item_type: "card_updated")
     end
     
     FeedItem.transaction do

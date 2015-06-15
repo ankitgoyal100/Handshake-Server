@@ -55,4 +55,7 @@ gem 'unf'
 # search indexing
 gem 'tanker'
 
+# phone numbers
+gem 'phony_rails'
+
 gem 'rails_12factor', group: :production

@@ -12,6 +12,7 @@ module CardsHelper
     json.phones card.phones do |phone|
       json.number phone.number
       json.label phone.label
+      json.country_code phone.country_code
     end
     json.addresses card.addresses do |address|
       json.street1 address.street1

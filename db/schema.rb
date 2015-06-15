@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150612011007) do
+ActiveRecord::Schema.define(version: 20150615201234) do
 
   create_table "addresses", force: true do |t|
     t.string   "street1"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20150612011007) do
     t.integer  "card_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "country_code"
   end
 
   add_index "phones", ["card_id"], name: "index_phones_on_card_id"
