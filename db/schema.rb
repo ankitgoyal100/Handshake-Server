@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150615201234) do
+ActiveRecord::Schema.define(version: 20150616004837) do
 
   create_table "addresses", force: true do |t|
     t.string   "street1"
@@ -55,6 +55,24 @@ ActiveRecord::Schema.define(version: 20150615201234) do
   add_index "cards_group_members", ["card_id"], name: "index_cards_group_members_on_card_id"
   add_index "cards_group_members", ["group_member_id"], name: "index_cards_group_members_on_group_member_id"
 
+  create_table "contact_data_entries", force: true do |t|
+    t.string   "phone"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contact_data_entries", ["email"], name: "index_contact_data_entries_on_email"
+  add_index "contact_data_entries", ["phone"], name: "index_contact_data_entries_on_phone"
+
+  create_table "contact_data_entries_users", force: true do |t|
+    t.integer "contact_data_entry_id"
+    t.integer "user_id"
+  end
+
+  add_index "contact_data_entries_users", ["contact_data_entry_id"], name: "index_contact_data_entries_users_on_contact_data_entry_id"
+  add_index "contact_data_entries_users", ["user_id"], name: "index_contact_data_entries_users_on_user_id"
+
   create_table "emails", force: true do |t|
     t.string   "address"
     t.string   "label"
@@ -63,6 +81,7 @@ ActiveRecord::Schema.define(version: 20150615201234) do
     t.datetime "updated_at"
   end
 
+  add_index "emails", ["address"], name: "index_emails_on_address"
   add_index "emails", ["card_id"], name: "index_emails_on_card_id"
 
   create_table "feed_items", force: true do |t|
@@ -127,6 +146,7 @@ ActiveRecord::Schema.define(version: 20150615201234) do
   end
 
   add_index "phones", ["card_id"], name: "index_phones_on_card_id"
+  add_index "phones", ["number"], name: "index_phones_on_number"
 
   create_table "socials", force: true do |t|
     t.string   "username"

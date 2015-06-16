@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   
   has_many :feed_items
   
+  has_and_belongs_to_many :contact_data_entries
+  
   mount_uploader :picture, PictureUploader
          
   def generate_token

@@ -44,6 +44,11 @@ Rails.application.routes.draw do
   post '/search/suggestions', to: 'search#suggestions'
 
   get '/feed', to: 'feeds#index'
+  
+  post '/upload/phones', to: 'contact_upload#upload_phones'
+  post '/upload/emails', to: 'contact_upload#upload_emails'
+  
+  get '/suggestions', to: 'suggestions#index'
 
   root to: "static_pages#home"
   get '/terms', to: 'static_pages#terms'
