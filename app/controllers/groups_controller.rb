@@ -20,6 +20,7 @@ class GroupsController < ApplicationController
       @errors = [ 'Group not found' ]
       render status: 404
     end
+    @members = @group.users.where.not(id: current_user.id).limit(6)
   end
   
   def members  

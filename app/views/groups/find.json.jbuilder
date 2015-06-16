@@ -7,5 +7,8 @@ else
     json.updated_at @group.updated_at
     json.name @group.name
     json.code @group.code
+    json.members @members do |user|
+      json_user(json, user)
+    end
   end
 end
