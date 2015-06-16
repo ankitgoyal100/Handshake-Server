@@ -63,6 +63,8 @@ class CardsController < ApplicationController
     feed_items = []
     
     @card.friendships.each do |friendship|
+      next if not friendship.accepted or friendship.is_deleted
+      
       friendship.touch
       friendship.save
       
