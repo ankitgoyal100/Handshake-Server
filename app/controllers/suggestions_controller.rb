@@ -20,6 +20,9 @@ class SuggestionsController < ApplicationController
             @suggestions << user if user != current_user and not Friendship.find_by(user: current_user, contact: user, is_deleted: false) and not Friendship.find_by(user: user, contact: current_user, is_deleted: false)
           end
         end
+        User.where(email: entry.email) do |user|
+          @suggestions << user if user != current_user and not Friendship.find_by(user: current_user, contact: user, is_deleted: false) and not Friendship.find_by(user: user, contact: current_user, is_deleted: false)
+        end
       end
     end
     
