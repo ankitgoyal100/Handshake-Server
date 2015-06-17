@@ -52,11 +52,15 @@ class CardsController < ApplicationController
       return
     end
     
+    old_updated_at = @card.updated_at
+    
     @card.phones -= old_phones
     @card.emails -= old_emails
     @card.addresses -= old_addresses
     @card.socials -= old_socials
     @card.save
+    
+    send_notifications = ((@card.updated_at - old_updated_at) * 24 * 60).to_i > 10 # max 1 notification every 10 minutes
     
     # update friendships / create feed items
     
@@ -69,6 +73,20 @@ class CardsController < ApplicationController
       friendship.save
       
       feed_items << FeedItem.new(user: friendship.user, contact: current_user, item_type: "card_updated")
+      
+      # send notification
+      if send_notifications and friendship.user.notifications_settings.new_contact_information and !friendship.user.black_listed_users.include?(current_user)
+        friendship.user.devices.each do |device|
+          if device.platform === "iphone"
+            notification = Houston::Notification.new(device: device.token)
+            notification.alert = current_user.formatted_name + " has new contact information!"
+            notification.badge = 1
+            notification.category = "new_contact_information"
+            notification.custom_data = { user: current_user.notifications_json_for_user(friendship.user) }
+            APN.push(notification)
+          end
+        end
+      end
     end
     
     FeedItem.transaction do

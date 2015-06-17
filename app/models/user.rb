@@ -20,6 +20,12 @@ class User < ActiveRecord::Base
   
   has_and_belongs_to_many :contact_data_entries
   
+  has_many :devices
+  has_one :notifications_settings
+  
+  has_many :black_listeds
+  has_many :black_listed_users, through: :black_listeds
+  
   mount_uploader :picture, PictureUploader
          
   def generate_token
@@ -35,6 +41,40 @@ class User < ActiveRecord::Base
     else
       self.first_name
     end
+  end
+  
+  def notifications_json_for_user(user)
+    json = {}
+    json[:id] = self.id
+    json[:created_at] = self.created_at
+    json[:updated_at] = self.updated_at
+    json[:first_name] = self.first_name
+    json[:last_name] = self.last_name
+    json[:picture] = self.picture.url
+    json[:thumb] = self.picture.thumb.url
+    json[:contacts] = self.contacts.length
+    json[:mutual] = (self.contacts & user.contacts).length
+    if user.contacts.include?(self)
+      friendship = user.friendships.find_by(contact: self)
+      json[:is_contact] = true
+      json[:cards] = friendship.cards.map do |card|
+        { id: card.id, created_at: card.created_at, updated_at: card.updated_at,
+          phones: card.phones.map { |phone| { number: phone.number, label: phone.label, country_code: phone.country_code } },
+          emails: card.emails.map { |email| { address: email.address, label: email.label } },
+          addresses: card.addresses.map { |address| { street1: address.street1, street2: address.street2, city: address.city, state: address.state, zip: address.zip, country: address.country, label: address.label } },
+          socials: card.socials.map { |social| { username: social.username, network: social.network } }
+        }
+      end
+      json[:contact_updated] = friendship.updated_at
+      json[:request_sent] = false
+      json[:request_received] = false
+    else
+      json[:is_contact] = false
+      json[:request_sent] = !self.friendships.find_by(contact: user, accepted: false).nil?
+      json[:request_received] = !user.friendships.find_by(contact: self, accepted: false).nil?
+    end
+    json[:notifications] = !user.black_listed_users.include?(self)
+    json
   end
   
   include Tanker

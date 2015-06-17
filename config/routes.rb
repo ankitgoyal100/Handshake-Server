@@ -49,6 +49,14 @@ Rails.application.routes.draw do
   post '/upload/emails', to: 'contact_upload#upload_emails'
   
   get '/suggestions', to: 'suggestions#index'
+  
+  post '/devices', to: 'devices#create'
+  
+  get '/notifications/settings', to: 'notifications#show_settings'
+  put '/notifications/settings', to: 'notifications#update_settings'
+  post '/users/:id/black_list', to: 'notifications#black_list_add'
+  delete '/users/:id/black_list', to: 'notifications#black_list_remove'
+  get '/black_list', to: 'notifications#black_list'
 
   root to: "static_pages#home"
   get '/terms', to: 'static_pages#terms'

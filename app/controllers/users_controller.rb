@@ -25,6 +25,7 @@ class UsersController < ApplicationController
     # create personal card
     card = Card.create(user: @user, name: "Personal")
     @user.cards << card
+    @user.notifications_settings = NotificationsSettings.create
   end
   
   def update

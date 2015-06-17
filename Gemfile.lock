@@ -42,6 +42,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.9.1.1)
+    commander (4.3.4)
+      highline (~> 1.7.2)
     countries (0.11.4)
       currencies (~> 0.4.2)
       i18n_data (~> 0.7.0)
@@ -79,7 +81,11 @@ GEM
       fog-core
       fog-json
     formatador (0.2.5)
+    highline (1.7.2)
     hike (1.2.3)
+    houston (2.2.3)
+      commander (~> 4.1)
+      json
     i18n (0.7.0)
     i18n_data (0.7.0)
     inflecto (0.0.2)
@@ -190,6 +196,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   fog
+  houston
   jbuilder (~> 2.0)
   jquery-rails
   mini_magick

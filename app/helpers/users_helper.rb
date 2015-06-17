@@ -38,6 +38,7 @@ module UsersHelper
       json.request_sent !user.friendships.find_by(contact: current_user, accepted: false).nil?
       json.request_received !current_user.friendships.find_by(contact: user, accepted: false).nil?
     end
+    json.notifications !current_user.black_listed_users.include?(user)
   end
   
 end

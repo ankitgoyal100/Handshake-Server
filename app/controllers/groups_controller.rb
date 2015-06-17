@@ -146,6 +146,20 @@ class GroupsController < ApplicationController
       
       # create feed item
       FeedItem.find_or_create_by(user: member.user, contact: current_user, group: @group, item_type: "new_group_member")
+      
+      # send notification
+      if member.user.notifications_settings.new_group_members and !member.user.black_listed_users.include?(current_user)
+        member.user.devices.each do |device|
+          if device.platform === "iphone"
+            notification = Houston::Notification.new(device: device.token)
+            notification.alert = current_user.formatted_name + " joined " + @group.name + "."
+            notification.badge = 1
+            notification.category = "new_group_members"
+            notification.custom_data = { user: current_user.notifications_json_for_user(member.user) }
+            APN.push(notification)
+          end
+        end
+      end
     end
     
     # update group

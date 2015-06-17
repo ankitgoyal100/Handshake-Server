@@ -40,6 +40,18 @@ class RequestsController < ApplicationController
       friendship.save
     
       # send notification
+      if @user.notifications_settings.requests and !@user.black_listed_users.include?(current_user)
+        @user.devices.each do |device|
+          if device.platform === "iphone"
+            notification = Houston::Notification.new(device: device.token)
+            notification.alert = current_user.formatted_name + " sent you a request!"
+            notification.badge = 1
+            notification.category = "requests"
+            notification.custom_data = { user: current_user.notifications_json_for_user(@user) }
+            APN.push(notification)
+          end
+        end
+      end
     end
     
     friendship.cards = cards
@@ -108,6 +120,20 @@ class RequestsController < ApplicationController
       # create feed items
       FeedItem.create(user: current_user, contact: @user, item_type: "new_contact")
       FeedItem.create(user: @user, contact: current_user, item_type: "new_contact")
+      
+      # send notifications
+      if @user.notifications_settings.new_contacts and !@user.black_listed_users.include?(current_user)
+        @user.devices.each do |device|
+          if device.platform === "iphone"
+            notification = Houston::Notification.new(device: device.token)
+            notification.alert = current_user.formatted_name + " accepted your request!"
+            notification.badge = 1
+            notification.category = "new_contacts"
+            notification.custom_data = { user: current_user.notifications_json_for_user(@user) }
+            APN.push(notification)
+          end
+        end
+      end
     end
   end
   

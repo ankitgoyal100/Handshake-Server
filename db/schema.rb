@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150616004837) do
+ActiveRecord::Schema.define(version: 20150617194955) do
 
   create_table "addresses", force: true do |t|
     t.string   "street1"
@@ -27,6 +27,16 @@ ActiveRecord::Schema.define(version: 20150616004837) do
   end
 
   add_index "addresses", ["card_id"], name: "index_addresses_on_card_id"
+
+  create_table "black_listeds", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "black_listed_user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "black_listeds", ["black_listed_user_id"], name: "index_black_listeds_on_black_listed_user_id"
+  add_index "black_listeds", ["user_id"], name: "index_black_listeds_on_user_id"
 
   create_table "cards", force: true do |t|
     t.integer  "user_id"
@@ -72,6 +82,16 @@ ActiveRecord::Schema.define(version: 20150616004837) do
 
   add_index "contact_data_entries_users", ["contact_data_entry_id"], name: "index_contact_data_entries_users_on_contact_data_entry_id"
   add_index "contact_data_entries_users", ["user_id"], name: "index_contact_data_entries_users_on_user_id"
+
+  create_table "devices", force: true do |t|
+    t.string   "token"
+    t.string   "platform"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "devices", ["user_id"], name: "index_devices_on_user_id"
 
   create_table "emails", force: true do |t|
     t.string   "address"
@@ -135,6 +155,23 @@ ActiveRecord::Schema.define(version: 20150616004837) do
   end
 
   add_index "groups", ["code"], name: "index_groups_on_code"
+
+  create_table "notifications_settings", force: true do |t|
+    t.integer  "user_id"
+    t.boolean  "enabled"
+    t.boolean  "requests"
+    t.boolean  "new_contacts"
+    t.boolean  "new_group_members"
+    t.boolean  "new_contact_information"
+    t.boolean  "contact_joined"
+    t.boolean  "suggestions"
+    t.boolean  "new_features"
+    t.boolean  "offers"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notifications_settings", ["user_id"], name: "index_notifications_settings_on_user_id"
 
   create_table "phones", force: true do |t|
     t.string   "number"
