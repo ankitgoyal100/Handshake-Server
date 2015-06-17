@@ -47,6 +47,7 @@ class RequestsController < ApplicationController
             notification.alert = current_user.formatted_name + " sent you a request!"
             notification.badge = 1
             notification.category = "requests"
+            notification.sound = "default"
             notification.custom_data = { user: current_user.notifications_json_for_user(@user) }
             APN.push(notification)
           end
@@ -129,6 +130,7 @@ class RequestsController < ApplicationController
             notification.alert = current_user.formatted_name + " accepted your request!"
             notification.badge = 1
             notification.category = "new_contacts"
+            notification.sound = "default"
             notification.custom_data = { user: current_user.notifications_json_for_user(@user) }
             APN.push(notification)
           end

@@ -82,6 +82,7 @@ class CardsController < ApplicationController
             notification.alert = current_user.formatted_name + " has new contact information!"
             notification.badge = 1
             notification.category = "new_contact_information"
+            notification.sound = "default"
             notification.custom_data = { user: current_user.notifications_json_for_user(friendship.user) }
             APN.push(notification)
           end
