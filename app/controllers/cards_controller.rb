@@ -44,6 +44,8 @@ class CardsController < ApplicationController
     @card.socials.each { |social| old_socials << social }
     
     @card.assign_attributes(params.permit(:name, emails_attributes: [:address, :label], phones_attributes: [:number, :label, :country_code], addresses_attributes: [:street1, :street2, :city, :state, :zip, :country, :label], socials_attributes: [:username, :network]))
+
+    old_updated_at = @card.updated_at
   
     @card.touch
     if not @card.valid?
@@ -52,15 +54,13 @@ class CardsController < ApplicationController
       return
     end
     
-    old_updated_at = @card.updated_at
-    
     @card.phones -= old_phones
     @card.emails -= old_emails
     @card.addresses -= old_addresses
     @card.socials -= old_socials
     @card.save
-    
-    send_notifications = ((@card.updated_at - old_updated_at) / 60).to_i > 10 # max 1 notification every 10 minutes
+  
+    send_notifications = ((@card.updated_at - old_updated_at) / 60) > 10 # max 1 notification every 10 minutes
     
     # update friendships / create feed items
     
