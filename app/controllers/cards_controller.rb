@@ -60,7 +60,7 @@ class CardsController < ApplicationController
     @card.socials -= old_socials
     @card.save
     
-    send_notifications = ((@card.updated_at - old_updated_at) * 24 * 60).to_i > 10 # max 1 notification every 10 minutes
+    send_notifications = ((@card.updated_at - old_updated_at) / 60).to_i > 10 # max 1 notification every 10 minutes
     
     # update friendships / create feed items
     
