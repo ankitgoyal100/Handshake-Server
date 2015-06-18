@@ -148,7 +148,7 @@ class GroupsController < ApplicationController
       FeedItem.find_or_create_by(user: member.user, contact: current_user, group: @group, item_type: "new_group_member")
       
       # send notification
-      if member.user.notifications_settings.new_group_members and !member.user.black_listed_users.include?(current_user)
+      if member.user.notifications_settings.enabled and member.user.notifications_settings.new_group_members and !member.user.black_listed_users.include?(current_user)
         member.user.devices.each do |device|
           if device.platform === "iphone"
             notification = Houston::Notification.new(device: device.token)

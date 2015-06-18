@@ -75,7 +75,7 @@ class CardsController < ApplicationController
       feed_items << FeedItem.new(user: friendship.user, contact: current_user, item_type: "card_updated") if send_notifications
       
       # send notification
-      if send_notifications and friendship.user.notifications_settings.new_contact_information and !friendship.user.black_listed_users.include?(current_user)
+      if send_notifications and friendship.user.notifications_settings.enabled and friendship.user.notifications_settings.new_contact_information and !friendship.user.black_listed_users.include?(current_user)
         friendship.user.devices.each do |device|
           if device.platform === "iphone"
             notification = Houston::Notification.new(device: device.token)

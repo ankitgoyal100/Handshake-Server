@@ -40,7 +40,7 @@ class RequestsController < ApplicationController
       friendship.save
     
       # send notification
-      if @user.notifications_settings.requests and !@user.black_listed_users.include?(current_user)
+      if @user.notifications_settings.enabled and @user.notifications_settings.requests and !@user.black_listed_users.include?(current_user)
         @user.devices.each do |device|
           if device.platform === "iphone"
             notification = Houston::Notification.new(device: device.token)
@@ -123,7 +123,7 @@ class RequestsController < ApplicationController
       FeedItem.create(user: @user, contact: current_user, item_type: "new_contact")
       
       # send notifications
-      if @user.notifications_settings.new_contacts and !@user.black_listed_users.include?(current_user)
+      if @user.notifications_settings.enabled and @user.notifications_settings.new_contacts and !@user.black_listed_users.include?(current_user)
         @user.devices.each do |device|
           if device.platform === "iphone"
             notification = Houston::Notification.new(device: device.token)
