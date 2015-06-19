@@ -61,4 +61,6 @@ gem 'phony_rails'
 # push notifications
 gem 'houston'
 
+gem 'activerecord-postgis-adapter'
+
 gem 'rails_12factor', group: :production
