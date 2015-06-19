@@ -91,14 +91,6 @@ class User < ActiveRecord::Base
       end
     end
     
-    indexes :phones do # numbers are indexed with spaces between each digit
-      self.cards.map { |card| card.phones.map { |phone| phone.number.gsub(/[^0-9]/, "").gsub(/(.{1})(?=.)/, '\1 \2') }}.flatten.uniq
-    end
-    
-    indexes :emails do
-      self.cards.map { |card| card.emails.map { |email| email.address }}.flatten.uniq
-    end
-    
     variables do
       {
         0 => self.lat,
