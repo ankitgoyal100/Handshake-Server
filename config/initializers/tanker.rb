@@ -1,1 +1,1 @@
-Rails.application.config.index_tank_url = 'http://:iWTZf9diXjfqLy@dy33e.api.searchify.com'
+Rails.application.config.index_tank_url = 'http://:magyqajydara@buzequ.api.indexden.com'
