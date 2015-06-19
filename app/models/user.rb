@@ -1,6 +1,10 @@
 require 'carrierwave/orm/activerecord'
+require 'elasticsearch/model'
 
 class User < ActiveRecord::Base
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -43,6 +47,10 @@ class User < ActiveRecord::Base
     end
   end
   
+  def full_name
+    self.formatted_name
+  end
+  
   def notifications_json_for_user(user)
     json = {}
     json[:id] = self.id
@@ -77,37 +85,17 @@ class User < ActiveRecord::Base
     json
   end
   
-  include Tanker
-  
-  tankit 'users_index' do
-    
-    indexes :id
-    
-    indexes :name do
-      if self.first_name and self.last_name
-        self.first_name + " " + self.last_name
-      else
-        self.first_name
-      end
-    end
-    
-    variables do
-      {
-        0 => self.lat,
-        1 => self.lng
-      }
-    end
-    
-    functions do
-      {
-        1 => "rel / if(d[0] == -1000, 100, if(q[0] == -1000, 100, max(0.000001, min(100, miles(d[0], d[1], q[0], q[1])))))"
-      }
-    end
-    
+  mapping do 
+    indexes :id, type: 'integer'
+    indexes :first_name, type: 'string'
+    indexes :last_name, type: 'string'
+    indexes :full_name, type: 'string'
+    indexes :location, type: 'geo_point'
   end
   
-  after_save :update_tank_indexes
-  after_destroy :delete_tank_indexes
+  def as_indexed_json(options={})
+    as_json(only: [:id, :first_name, :last_name], methods: [:full_name]).merge location: { lat: self.lat, lon: self.lng }
+  end
   
   def self.per_page
     100

@@ -52,15 +52,14 @@ gem "mini_magick"
 gem 'carrierwave'
 gem 'unf'
 
-# search indexing
-gem 'tanker'
-
 # phone numbers
 gem 'phony_rails'
 
 # push notifications
 gem 'houston'
 
-gem 'activerecord-postgis-adapter'
+# search
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 
 gem 'rails_12factor', group: :production

@@ -6,7 +6,36 @@ class SearchController < ApplicationController
     if not params[:q]
       @results = []
     else
-      search_results = User.search_tank("name:(" + params[:q].split(" ").join("* ") + "*" + ")", var0: current_user.lat, var1: current_user.lng, function: 1, conditions: { '-id' => current_user.id }, page: params[:page])
+      params[:q] = params[:q].downcase
+      search_results = User.__elasticsearch__.search( {
+        query: {
+          bool: {
+            must: [
+              {
+                multi_match: { fields: [:first_name, :last_name, :full_name], query: params[:q], type: :phrase_prefix }
+              }
+            ],
+            must_not: [
+              {
+                ids: { values: [current_user.id] }
+              }
+            ]
+          }
+        },
+        sort: [ 
+          {
+            _geo_distance: {
+              location: {
+                lat: current_user.lat,
+                lon: current_user.lng
+              },
+              order: "asc",
+              unit: "km"
+            }
+          } 
+        ]
+      }).page(params[:page]).records
+      #search_results = User.search_tank("name:(" + params[:q].split(" ").join("* ") + "*" + ")", var0: current_user.lat, var1: current_user.lng, function: 1, conditions: { '-id' => current_user.id }, page: params[:page])
       @results = []
       search_results.each do |search_result|
         result = []

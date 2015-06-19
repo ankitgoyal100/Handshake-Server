@@ -85,6 +85,7 @@ class UsersController < ApplicationController
     current_user.lat = params[:lat]
     current_user.lng = params[:lng]
     current_user.save
+    current_user.__elasticsearch__.index_document
   end
   
 end
