@@ -14,7 +14,7 @@ class ContactUploadController < ApplicationController
         normalized_number = PhonyRails.normalize_number(number)
         
         entry = ContactDataEntry.find_or_create_by(phone: normalized_number)
-        entry.users << current_user
+        entry.users << current_user unless entry.users.include?(current_user)
       end
     end
   end
@@ -28,7 +28,7 @@ class ContactUploadController < ApplicationController
     
     params[:emails].each do |email|
       entry = ContactDataEntry.find_or_create_by(email: email)
-      entry.users << current_user
+      entry.users << current_user unless entry.users.include?(current_user)
     end
   end
   
