@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     if user && Devise.secure_compare(user.authentication_token, params[:auth_token])
       sign_in user, store: false
     else
-      render :status => 401, :json => { errors: ['You are not authorized to that'] }
+      render :status => 401, :json => { errors: ['You are not authorized to do that'] }
     end
   end
   

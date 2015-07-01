@@ -12,22 +12,22 @@ class User < ActiveRecord::Base
          
   validates :first_name, presence: true
   
-  has_many :cards
+  has_many :cards, dependent: :destroy
   
-  has_many :friendships
+  has_many :friendships, dependent: :destroy
   has_many :contacts, -> { where(friendships: { accepted: true, is_deleted: false }).order('first_name DESC') }, through: :friendships
 
-  has_many :group_members
+  has_many :group_members, dependent: :destroy
   has_many :groups, through: :group_members
   
-  has_many :feed_items
+  has_many :feed_items, dependent: :destroy
   
   has_and_belongs_to_many :contact_data_entries
   
-  has_many :devices
-  has_one :notifications_settings
+  has_many :devices, dependent: :destroy
+  has_one :notifications_settings, dependent: :destroy
   
-  has_many :black_listeds
+  has_many :black_listeds, dependent: :destroy
   has_many :black_listed_users, through: :black_listeds
   
   mount_uploader :picture, PictureUploader
