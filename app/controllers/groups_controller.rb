@@ -156,7 +156,8 @@ class GroupsController < ApplicationController
             notification.badge = 1
             notification.category = "new_group_members"
             notification.sound = "default"
-            notification.custom_data = { user: current_user.notifications_json_for_user(member.user) }
+            notification.content_available = true
+            notification.custom_data = { user: current_user.notifications_json_for_user(member.user), group_id: @group.id }
             APN.push(notification)
           end
         end
