@@ -37,7 +37,7 @@ class SearchController < ApplicationController
       }).page(params[:page]).records
       #search_results = User.search_tank("name:(" + params[:q].split(" ").join("* ") + "*" + ")", var0: current_user.lat, var1: current_user.lng, function: 1, conditions: { '-id' => current_user.id }, page: params[:page])
       @results = []
-      @current_user_contacts = current_user.contacts.to_a
+      current_user_contact_ids = current_user.contacts.map { |c| c.id }
       
       # map users to friendships
       user_friendship_map = {}
@@ -51,7 +51,7 @@ class SearchController < ApplicationController
         result = {}
         result[:user] = search_result
         result[:contacts] = search_result.contacts.where.not(id: current_user.id).count
-        result[:mutual] = search_result.contacts.where(id: @current_user_contacts.map { |c| c.id }).count # mutual contacts
+        result[:mutual] = search_result.contacts.where(id: current_user_contact_ids.map { |c| c.id }).count # mutual contacts
         
         friendship = user_friendship_map[search_result]
         
