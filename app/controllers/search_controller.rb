@@ -43,10 +43,16 @@ class SearchController < ApplicationController
       # load up contact counts
       subquery = Friendship.where(is_deleted: false, accepted: true, user_id: search_result_ids).where.not(contact: current_user).to_sql
       contact_counts = Hash[User.connection.select_rows("select user_id, count(*) from (#{subquery}) f group by user_id")]
+      contact_counts.map do |user_id, count|
+        contact_counts[user_id] = count.to_i
+      end
       
       # load up mutual counts
       subquery = Friendship.where(is_deleted: false, accepted: true, user_id: current_user_contact_ids, contact_id: search_result_ids).to_sql
       mutual_counts = Hash[User.connection.select_rows("select user_id, count(*) from (#{subquery}) f group by user_id")]
+      mutual_counts.map do |user_id, count|
+        mutual_counts[user_id] = count.to_i
+      end
       
       # map users to friendships
       user_friendship_map = {}
@@ -59,13 +65,13 @@ class SearchController < ApplicationController
       search_results.each do |search_result|
         result = {}
         result[:user] = search_result
-        if contact_counts[search_result.id]
+        if contact_counts["#{search_result.id}"]
           result[:contacts] = contact_counts[search_result.id]
         else
           result[:contacts] = 0
         end
         
-        if mutual_counts[search_result.id]
+        if mutual_counts["#{search_result.id}"]
           result[:mutual] = mutual_counts[search_result.id]
         else
           result[:mutual] = 0
