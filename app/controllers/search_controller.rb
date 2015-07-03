@@ -41,7 +41,7 @@ class SearchController < ApplicationController
       
       # map users to friendships
       user_friendship_map = {}
-      current_user.friendships.where(contact: search_results).each { |f| user_friendship_map[f.contact] = f } # outgoing
+      current_user.friendships.where(contact_id: search_results.map { |r| r.id }).each { |f| user_friendship_map[f.contact] = f } # outgoing
       Friendship.where(contact: current_user, user: search_results).each { |f| user_friendship_map[f.user] = f } #incoming friendships (overwrite)
       
       # load black list
@@ -50,7 +50,7 @@ class SearchController < ApplicationController
       search_results.each do |search_result|
         result = {}
         result[:user] = search_result
-        result[:contacts] = search_result.contact.where.not(id: current_user.id).count
+        result[:contacts] = search_result.contacts.where.not(id: current_user.id).count
         result[:mutual] = search_result.contacts.where(id: @current_user_contacts.map { |c| c.id }).count # mutual contacts
         
         friendship = user_friendship_map[search_result]
