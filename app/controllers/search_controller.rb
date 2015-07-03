@@ -42,7 +42,7 @@ class SearchController < ApplicationController
       # map users to friendships
       user_friendship_map = {}
       current_user.friendships.where(contact_id: search_results.map { |r| r.id }).each { |f| user_friendship_map[f.contact] = f } # outgoing
-      Friendship.where(contact: current_user, user: search_results).each { |f| user_friendship_map[f.user] = f } #incoming friendships (overwrite)
+      Friendship.where(contact: current_user, user_id: search_results.map { |r| r.id }).each { |f| user_friendship_map[f.user] = f } #incoming friendships (overwrite)
       
       # load black list
       black_list = current_user.black_listed_users.to_a
