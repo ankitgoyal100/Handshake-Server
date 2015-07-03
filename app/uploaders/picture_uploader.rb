@@ -17,7 +17,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   end
   
   def filename
-    "#{rand(999999)}_#{rand(999999)}_#{rand(999999)}.#{file.extension}"
+    "#{rand(999999)}#{rand(999999)}.#{file.extension}"
   end
   
   def cache_dir
