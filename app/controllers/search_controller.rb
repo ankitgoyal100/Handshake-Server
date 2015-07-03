@@ -41,8 +41,8 @@ class SearchController < ApplicationController
       
       # map users to friendships
       user_friendship_map = {}
-      current_user.friendships.where(contact_id: search_results.map { |r| r.id }).each { |f| user_friendship_map[f.contact] = f } # outgoing
-      Friendship.where(contact: current_user, user_id: search_results.map { |r| r.id }).each { |f| user_friendship_map[f.user] = f } #incoming friendships (overwrite)
+      Friendship.where(contact: current_user, user_id: search_results.map { |r| r.id }).each { |f| user_friendship_map[f.user] = f } # outgoing friendships
+      current_user.friendships.where(contact_id: search_results.map { |r| r.id }).each { |f| user_friendship_map[f.contact] = f } # incoming overwrite
       
       # load black list
       black_list = current_user.black_listed_users.to_a
@@ -60,11 +60,11 @@ class SearchController < ApplicationController
           result[:cards] = friendship.cards
         else
           result[:is_contact] = false
-          result[:request_sent] = friendship and friendship.user == current_user and not friendship.accepted
-          result[:request_received] = friendship and friendship.user == search_result and not friendship.accepted
+          result[:request_sent] = friendship and friendship.user == search_result and not friendship.accepted
+          result[:request_received] = friendship and friendship.user == current_user and not friendship.accepted
         end
         
-        result[:notifications] = black_list.include?(search_result)
+        result[:notifications] = !black_list.include?(search_result)
         
         @results << result
       end
