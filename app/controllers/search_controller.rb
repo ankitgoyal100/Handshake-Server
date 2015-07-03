@@ -37,7 +37,7 @@ class SearchController < ApplicationController
       }).page(params[:page]).records
       #search_results = User.search_tank("name:(" + params[:q].split(" ").join("* ") + "*" + ")", var0: current_user.lat, var1: current_user.lng, function: 1, conditions: { '-id' => current_user.id }, page: params[:page])
       @results = []
-      @current_user_contacts = current_user.contacts
+      @current_user_contacts = current_user.contacts.to_a
       search_results.each do |search_result|
         result = []
         result << search_result
