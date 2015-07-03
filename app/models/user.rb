@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
   end
   
   def self.per_page
-    100
+    30
   end
          
 end
