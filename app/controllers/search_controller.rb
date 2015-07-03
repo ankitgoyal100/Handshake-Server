@@ -42,11 +42,11 @@ class SearchController < ApplicationController
       
       # load up contact counts
       subquery = Friendship.where(is_deleted: false, accepted: true, user_id: search_result_ids).where.not(contact: current_user).to_sql
-      contact_counts = Hash[User.connection.select_rows("select user_id, count(*) from (#{subquery}) group by user_id")]
+      contact_counts = Hash[User.connection.select_rows("select user_id, count(*) from (#{subquery}) f group by user_id")]
       
       # load up mutual counts
       subquery = Friendship.where(is_deleted: false, accepted: true, user_id: current_user_contact_ids, contact_id: search_result_ids).to_sql
-      mutual_counts = Hash[User.connection.select_rows("select user_id, count(*) from (#{subquery}) group by user_id")]
+      mutual_counts = Hash[User.connection.select_rows("select user_id, count(*) from (#{subquery}) f group by user_id")]
       
       # map users to friendships
       user_friendship_map = {}
