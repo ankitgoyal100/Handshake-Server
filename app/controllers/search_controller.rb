@@ -38,6 +38,15 @@ class SearchController < ApplicationController
       #search_results = User.search_tank("name:(" + params[:q].split(" ").join("* ") + "*" + ")", var0: current_user.lat, var1: current_user.lng, function: 1, conditions: { '-id' => current_user.id }, page: params[:page])
       @results = []
       current_user_contact_ids = current_user.contacts.map { |c| c.id }
+      search_result_ids = search_results.map { |r| r.id }
+      
+      # load up contact counts
+      subquery = Friendship.where(is_deleted: false, accepted: true, user_id: search_result_ids).where.not(contact: current_user).to_sql
+      contact_counts = Hash[User.connection.select_rows("select user_id, count(*) from (#{subquery}) group by user_id")]
+      
+      # load up mutual counts
+      subquery = Friendship.where(is_deleted: false, accepted: true, user_id: current_user_contact_ids, contact_id: search_result_ids).to_sql
+      mutual_counts = Hash[User.connection.select_rows("select user_id, count(*) from (#{subquery}) group by user_id")]
       
       # map users to friendships
       user_friendship_map = {}
@@ -50,8 +59,20 @@ class SearchController < ApplicationController
       search_results.each do |search_result|
         result = {}
         result[:user] = search_result
-        result[:contacts] = search_result.contacts.where.not(id: current_user.id).count
-        result[:mutual] = search_result.contacts.where(id: current_user_contact_ids).count # mutual contacts
+        if contact_counts[search_result.id]
+          result[:contacts] = contact_counts[search_result.id]
+        else
+          result[:contacts] = 0
+        end
+        
+        if mutual_counts[search_result.id]
+          result[:mutual] = mutual_counts[search_result.id]
+        else
+          result[:mutual] = 0
+        end
+        
+        #result[:contacts] = search_result.contacts.where.not(id: current_user.id).count
+        #result[:mutual] = search_result.contacts.where(id: current_user_contact_ids).count # mutual contacts
         
         friendship = user_friendship_map[search_result]
         
