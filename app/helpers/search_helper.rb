@@ -11,7 +11,7 @@ module SearchHelper
     json.thumb user.picture.thumb.url
     json.contacts user.contacts.where.not(id: current_user.id).length
     json.mutual result[1]
-    if current_user.contacts.include?(user)
+    if current_user.contacts.where(id: user.id).count == 1
       friendship = current_user.friendships.find_by(contact: user)
       json.is_contact true
       json.cards friendship.cards do |card|
