@@ -38,14 +38,37 @@ class SearchController < ApplicationController
       #search_results = User.search_tank("name:(" + params[:q].split(" ").join("* ") + "*" + ")", var0: current_user.lat, var1: current_user.lng, function: 1, conditions: { '-id' => current_user.id }, page: params[:page])
       @results = []
       @current_user_contacts = current_user.contacts.to_a
+      
+      # map users to friendships
+      user_friendship_map = {}
+      current_user.friendships.where(contact: search_results).each { |f| user_friendship_map[f.contact] = f } # outgoing
+      Friendship.where(contact: current_user, user: search_results).each { |f| user_friendship_map[f.user] = f } #incoming friendships (overwrite)
+      
+      # load black list
+      black_list = current_user.black_listed_users.to_a
+      
       search_results.each do |search_result|
-        result = []
-        result << search_result
-        #result << (search_result.contacts & current_user.contacts).length
-        result << search_result.contacts.where(id: @current_user_contacts.map { |c| c.id }).count
+        result = {}
+        result[:user] = search_result
+        result[:contacts] = search_result.contact.where.not(id: current_user.id).count
+        result[:mutual] = search_result.contacts.where(id: @current_user_contacts.map { |c| c.id }).count # mutual contacts
+        
+        friendship = user_friendship_map[search_result]
+        
+        if friendship and friendship.accepted and not friendship.is_deleted
+          result[:friendship] = friendship
+          result[:cards] = friendship.cards
+        else
+          result[:is_contact] = false
+          result[:request_sent] = friendship and friendship.user == current_user and not friendship.accepted
+          result[:request_received] = friendship and friendship.user == search_result and not friendship.accepted
+        end
+        
+        result[:notifications] = black_list.include?(search_result)
+        
         @results << result
       end
-      @results = @results.sort_by { |result| [-result[1], @results.index(result)] }
+      @results = @results.sort_by { |result| [-result[:mutual], @results.index(result)] }
     end
   end
   
