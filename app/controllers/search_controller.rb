@@ -48,7 +48,7 @@ class SearchController < ApplicationController
       end
       
       # load up mutual counts
-      subquery = Friendship.where(is_deleted: false, accepted: true, user_id: current_user_contact_ids, contact_id: search_result_ids).to_sql
+      subquery = Friendship.where(is_deleted: false, accepted: true, user_id: search_result_ids, contact_id: current_user_contact_ids - search_result_ids).to_sql
       mutual_counts = Hash[User.connection.select_rows("select user_id, count(*) from (#{subquery}) f group by user_id")]
       mutual_counts.each do |user_id, count|
         mutual_counts[user_id] = count.to_i
