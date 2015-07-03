@@ -51,7 +51,7 @@ class SearchController < ApplicationController
         result = {}
         result[:user] = search_result
         result[:contacts] = search_result.contacts.where.not(id: current_user.id).count
-        result[:mutual] = search_result.contacts.where(id: current_user_contact_ids.map { |c| c.id }).count # mutual contacts
+        result[:mutual] = search_result.contacts.where(id: current_user_contact_ids).count # mutual contacts
         
         friendship = user_friendship_map[search_result]
         
