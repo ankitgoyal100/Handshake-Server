@@ -25,7 +25,7 @@ module SearchHelper
       json.request_sent user.friendships.where(contact: current_user, accepted: false).count == 1
       json.request_received current_user.friendships.where(contact: user, accepted: false).count == 1
     end
-    json.notifications !current_user.black_listed_users.include?(user)
+    json.notifications current_user.black_listed_users.where(id: user.id).count == 1
   end
   
 end
