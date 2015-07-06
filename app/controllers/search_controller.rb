@@ -86,10 +86,12 @@ class SearchController < ApplicationController
         if friendship and friendship.accepted and not friendship.is_deleted
           result[:friendship] = friendship
           result[:cards] = friendship.cards
+          result[:request_sent] = false
+          result[:request_received] = false
         else
           result[:is_contact] = false
-          result[:request_sent] = friendship and friendship.user == search_result and not friendship.accepted
-          result[:request_received] = friendship and friendship.user == current_user and not friendship.accepted
+          result[:request_sent] = (friendship and friendship.user == search_result and not friendship.accepted)
+          result[:request_received] = (friendship and friendship.user == current_user and not friendship.accepted)
         end
         
         result[:notifications] = !black_list.include?(search_result)
