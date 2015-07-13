@@ -1,133 +1,265 @@
 <style>
-* {
-	padding:0;
-	margin: 0;
-	font-family: 'Open Sans', sans-serif;
+
+.hero {
+	background: url('/images/phone_mockup_1.jpg') no-repeat center center;
+	background-size: cover;
+	padding: 45px 0px;
 }
 
-#background-img {
-	position:absolute;
-	top:0px;
-	bottom:0px;
-	left:0px;
-	right:0px;
-	z-index:-5;
-	
-    background: url(/images/background.png) no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+.hero {
+	color: #FFFFFF;
 }
 
-#background {
-	position:absolute;
-	top:0;
-	bottom:0;
-	left:0;
-	right:0;
-	z-index:-4;
-	
-	opacity: 0.3;
-	
-	background: #f5a623; /* Old browsers */
-	background: -moz-linear-gradient(top,  #f5a623 0%, #50c99f 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5a623), color-stop(100%,#50c99f)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #f5a623 0%,#50c99f 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #f5a623 0%,#50c99f 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #f5a623 0%,#50c99f 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #f5a623 0%,#50c99f 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5a623', endColorstr='#50c99f',GradientType=0 ); /* IE6-9 */
+.section-1 {
+	padding: 45px 0px 60px 0px;
+	background-color: #F5F5F5;
+}
+
+.section-2 {
+	padding: 45px 0px;
 	
 }
 
-#main {
-	position: absolute;
-	left:0;
-	right:0;
-	top: 50%;
-	-webkit-transform: translateY(-50%);
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);
-	padding:20px;
+.request-beta-section {
+	padding: 45px 0px;
+	background-color: #F5F5F5;
 }
 
-#logo {
-	width:200px;
-	margin:30px;
+.footer {
+	padding: 45px 0px;
+	background-color: #f5f5f5;
 }
 
-#introducing {
-	color:white;
-	font-size:3.5em;
-	margin-bottom:10px;
+.main-request-button {
+	margin-top: 80px;
 }
 
-#caption {
-	color:white;
-	font-size:1.5em;
-}
-
-#appstore {
-	width: 150px;
-	margin:40px;
-}
-
-#footer {
-	position:absolute;
-	bottom:0px;
-	left:0;
-	right:0;
-	text-align:center;
-	color:white;
-	height:56px;
-}
-
-#footer a {
-	color:white;
-	text-decoration:none;
-}
-
-#footer a:hover {
-	opacity:0.4;
-}
-
-@media (max-width: 640px) {
-	#logo {
-		width: 100px;
+@media (max-width: 768px) {
+	.main-request-button {
+		text-align: center;
+		margin-top: 30px;
 	}
 	
-	#introducing {
-		font-size:1.7em;
+	h1 {
+		font-size: 30px;
+		text-align: center;
 	}
 	
-	#caption {
-		font-size:1em;
+	p {
+		text-align: center;
+	}
+	
+	.screenshot {
+		margin: 0px auto;
 	}
 }
 
 </style>
 
-<div id="background-img"></div>
-
-<div id="background"></div>
-
-<div id="main" style="text-align:center;">
+<div class="hero">
 	
-	<img src="/images/handshake_logo.png" id="logo" />
+	<nav class="navbar navbar-default">
+		
+		<div class="container">
+			
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapsable" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				
+		      	<a class="navbar-brand" href="/" style="padding-top: 0; padding-bottom: 0">
+					<div style="width: 100%; height:100%">
+						<span style="display: inline-block; height: 100%; vertical-align:middle;"></span>
+		      			<img alt="Handshake" src="/images/logo.png" style="width: 200px; vertical-align: middle;" />
+					</div>
+		      	</a>
+		    </div>
+			
+			<div class="collapse navbar-collapse" id="navbar-collapsable">
+				<ul class="nav navbar-nav navbar-right text-center">
+					<li><a href="#">Contact Us</a></li>
+					<li>
+						<p class="navbar-btn">
+							<a href="#beta-invite" class="btn btn-primary">Request Beta Invite!</a>
+						</p>
+					</li>
+				</ul>
+			</div>
+			
+		</div>
+		
+	</nav>
 
-	<div id="introducing">Introducing Handshake.</div>
-
-	<div id="caption">An easier way to meet people.</div>
+	<div class="container">
 	
-	<a style="border:none" href="https://itunes.apple.com/us/app/handshake-contact-sharing/id932493587?mt=8&uo=4"><img id="appstore" src="http://upload.wikimedia.org/wikipedia/commons/1/11/Available_on_the_App_Store_(gray).png" /></a>
+		<div class="row">
+		
+			<div class="col-sm-7">
+			
+				<h1 style="margin-bottom: 30px">The easiest way to share your contact information.</h1>
+				
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				
+				<div style="margin-bottom: 50px;" class="main-request-button"><a href="#beta-invite" class="btn btn-primary btn-lg">Request Beta Invite!</a></div>
+			
+			</div>
+		
+			<div class="col-sm-4 col-sm-offset-1">
+			
+				<img src="/images/user.png" class="img-responsive" style="margin: 0px auto" />
+			
+			</div>
+		
+		</div>
+	
+	</div>
+
+</div>
+
+<div class="section-1">
+	
+	<div class="container text-center">
+		
+		<h1 style="margin-bottom: 30px">All your contacts, always up to date.</h1>
+		
+		<div class="row">
+			
+			<div class="col-md-8 col-md-offset-2">
+				
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				
+			</div>
+			
+		</div>
+		
+	</div>
 	
 </div>
 
-<div id="footer">
+<div class="section-2" style="background-color: #EB8842; color: #ffffff">
 	
-	<a href="mailto:contact@gethandshakeapp.com">Contact Us</a> | <a href="/terms">Terms</a>
+	<div class="container">
+		
+		<div class="row">
+			
+			<div class="col-lg-9 col-lg-push-3 col-md-8 col-md-push-4 col-sm-7 col-sm-push-5">
+				
+				<h1 style="margin-bottom: 30px">Groups are cool.</h1>
+				
+				<p style="margin-bottom: 50px">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				
+			</div>
+			
+			<div class="col-lg-3 col-lg-pull-9 col-md-4 col-md-pull-8 col-sm-5 col-sm-pull-7">
+				
+				<img src="/images/groups.png" class="img-responsive screenshot" style="height: 500px" />
+				
+			</div>
+			
+			
+			
+		</div>
+		
+	</div>
 	
-	<div style="font-size:0.8em;margin-top:6px">&copy; 2014 Handshake: Contact Sharing</div>
+</div>
+
+<div class="section-2">
+	
+	<div class="container">
+		
+		<div class="row">
+			
+			<div class="col-lg-9 col-md-8 col-sm-7">
+				
+				<h1 style="margin-bottom: 30px">Contacts are cool.</h1>
+				
+				<p style="margin-bottom: 50px">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				
+			</div>
+			
+			<div class="col-lg-3 col-md-4 col-sm-5">
+				
+				<img src="/images/contacts.png" class="img-responsive screenshot" style="height: 500px" />
+				
+			</div>
+			
+		</div>
+		
+	</div>
+	
+</div>
+
+<div class="section-2" style="background-color: #EB8842; color: #ffffff">
+	
+	<div class="container">
+		
+		<div class="row">
+			
+			<div class="col-lg-9 col-lg-push-3 col-md-8 col-md-push-4 col-sm-7 col-sm-push-5">
+				
+				<h1 style="margin-bottom: 30px">Home screens are cool.</h1>
+				
+				<p style="margin-bottom: 50px">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				
+			</div>
+			
+			<div class="col-lg-3 col-lg-pull-9 col-md-4 col-md-pull-8 col-sm-5 col-sm-pull-7">
+				
+				<img src="/images/home.png" class="img-responsive screenshot" style="height: 500px" />
+				
+			</div>
+			
+			
+			
+		</div>
+		
+	</div>
+	
+</div>
+
+<a name="beta-invite"></a>
+<div class="request-beta-section text-center">
+	
+	<div class="container">
+		
+		<h1>Request Beta Access!</h1>
+		
+		<p style="margin-bottom: 30px">We'll notify you once your request has been approved.</p>
+		
+		<div class="row">
+			
+			<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2">
+		
+				<form>
+			
+					<div class="row">
+						<div class="col-sm-6" style="margin-bottom: 20px"><input type="text" name="email" class="form-control" placeholder="Enter your email address..." width="20" /></div>	
+						<div class="col-sm-3" style="margin-bottom: 20px">
+							
+							<select class="form-control">
+								<option>iPhone</option>
+								<option>Android</option>
+							</select>
+							
+						</div>
+						<div class="col-sm-3" style="margin-bottom: 20px"><input type="submit" class="btn btn-primary btn-block" value="Request!"></input></div>
+					</div>
+			
+				</form>
+			</div>
+		
+		</div>
+		
+	</div>
+	
+</div>
+
+<div class="footer text-center">
+	
+	Contact Us | Terms and Conditions
 	
 </div>
