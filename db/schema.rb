@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150617194955) do
+ActiveRecord::Schema.define(version: 20150714015611) do
 
   create_table "addresses", force: true do |t|
     t.string   "street1"
@@ -27,6 +27,13 @@ ActiveRecord::Schema.define(version: 20150617194955) do
   end
 
   add_index "addresses", ["card_id"], name: "index_addresses_on_card_id"
+
+  create_table "beta_requests", force: true do |t|
+    t.string   "email"
+    t.string   "device"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "black_listeds", force: true do |t|
     t.integer  "user_id"

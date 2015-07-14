@@ -60,5 +60,7 @@ Rails.application.routes.draw do
 
   root to: "static_pages#home"
   get '/terms', to: 'static_pages#terms'
+  
+  post '/request-invite', to: 'beta_requests#create'
    
 end

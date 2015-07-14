@@ -253,13 +253,17 @@
 			
 			<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2">
 		
-				<form>
+				<form action="/request-invite#beta-invite" method="POST">
+					
+					<% if @errors %>
+					<p style="color: #dd0000">Please enter an email address.</p>
+					<% end %>
 			
 					<div class="row">
 						<div class="col-sm-6" style="margin-bottom: 20px"><input type="email" name="email" class="form-control" placeholder="Enter your email address..." width="20" /></div>	
 						<div class="col-sm-3" style="margin-bottom: 20px">
 							
-							<select class="form-control">
+							<select class="form-control" name="device">
 								<option>iPhone</option>
 								<option>Android</option>
 							</select>
