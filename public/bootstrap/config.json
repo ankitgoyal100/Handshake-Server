@@ -20,10 +20,10 @@
     "@font-family-serif": "Georgia, \"Times New Roman\", Times, serif",
     "@font-family-monospace": "Menlo, Monaco, Consolas, \"Courier New\", monospace",
     "@font-family-base": "@font-family-sans-serif",
-    "@font-size-base": "18px",
+    "@font-size-base": "20px",
     "@font-size-large": "ceil((@font-size-base * 1.25))",
     "@font-size-small": "ceil((@font-size-base * 0.85))",
-    "@font-size-h1": "floor((@font-size-base * 2.6))",
+    "@font-size-h1": "46px",
     "@font-size-h2": "floor((@font-size-base * 2.15))",
     "@font-size-h3": "ceil((@font-size-base * 1.7))",
     "@font-size-h4": "ceil((@font-size-base * 1.25))",
@@ -33,7 +33,7 @@
     "@line-height-computed": "floor((@font-size-base * @line-height-base))",
     "@headings-font-family": "inherit",
     "@headings-font-weight": "300",
-    "@headings-line-height": "1.1",
+    "@headings-line-height": "1.2",
     "@headings-color": "inherit",
     "@icon-font-path": "\"../fonts/\"",
     "@icon-font-name": "\"glyphicons-halflings-regular\"",
@@ -430,5 +430,5 @@
     "scrollspy.js",
     "transition.js"
   ],
-  "customizerUrl": "http://getbootstrap.com/customize/?id=728c632e22e0d06ac963"
+  "customizerUrl": "http://getbootstrap.com/customize/?id=e678bc8753135aa7428f"
 }
