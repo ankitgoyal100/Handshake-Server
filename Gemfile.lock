@@ -96,12 +96,18 @@ GEM
       fog-core
       fog-json
     formatador (0.2.5)
+    gcm (0.1.0)
+      httparty
+      json
     hashie (3.4.2)
     highline (1.7.2)
     hike (1.2.3)
     houston (2.2.3)
       commander (~> 4.1)
       json
+    httparty (0.13.5)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     i18n_data (0.7.0)
     inflecto (0.0.2)
@@ -122,6 +128,7 @@ GEM
     mini_portile (0.6.0)
     minitest (5.7.0)
     multi_json (1.11.1)
+    multi_xml (0.5.5)
     multipart-post (2.0.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -213,6 +220,7 @@ DEPENDENCIES
   elasticsearch-model
   elasticsearch-rails
   fog
+  gcm
   houston
   jbuilder (~> 2.0)
   jquery-rails

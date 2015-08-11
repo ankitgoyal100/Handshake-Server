@@ -57,6 +57,7 @@ gem 'phony_rails'
 
 # push notifications
 gem 'houston'
+gem 'gcm'
 
 # search
 gem 'elasticsearch-model'

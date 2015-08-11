@@ -51,6 +51,14 @@ class RequestsController < ApplicationController
             notification.content_available = true
             notification.custom_data = { user: current_user.notifications_json_for_user(@user) }
             APN.push(notification)
+          elsif device.platform === "android"
+            data = { data:
+              {
+                message: current_user.formatted_name + " sent you a request!",
+                user: current_user.notifications_json_for_user(@user)
+              }
+            }
+            GCM.send([device.token], data)
           end
         end
       end
@@ -135,6 +143,14 @@ class RequestsController < ApplicationController
             notification.content_available = true
             notification.custom_data = { user: current_user.notifications_json_for_user(@user) }
             APN.push(notification)
+          elsif device.platform === "android"
+            data = { data: 
+              {
+                message: current_user.formatted_name + " accepted your request!",
+                user: current_user.notifications_json_for_user(@user)
+              }
+            }
+            GCM.send([device.token], data)
           end
         end
       end

@@ -1,0 +1,1 @@
+GCM = GCM.new("AIzaSyDPnyjFY1wi9gqvzbCYg0LbA49k9XE_Mh0")

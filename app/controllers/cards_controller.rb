@@ -86,6 +86,14 @@ class CardsController < ApplicationController
             notification.content_available = true
             notification.custom_data = { user: current_user.notifications_json_for_user(friendship.user) }
             APN.push(notification)
+          elsif device.platform === "android"
+            data = { data: 
+              {
+                message: current_user.formatted_name + " has new contact information!",
+                user: current_user.notifications_json_for_user(friendship.user)
+              }
+            }
+            GCM.send([device.token], data)
           end
         end
       end

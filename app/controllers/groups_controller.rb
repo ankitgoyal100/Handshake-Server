@@ -159,6 +159,15 @@ class GroupsController < ApplicationController
             notification.content_available = true
             notification.custom_data = { user: current_user.notifications_json_for_user(member.user), group_id: @group.id }
             APN.push(notification)
+          elsif device.platform === "android"
+            data = { data:
+              {
+                message: current_user.formatted_name + " joined " + @group.name + ".",
+                user: current_user.notifications_json_for_user(member.user),
+                group_id: @group.id
+              }
+            }
+            GCM.send([device.token], data)
           end
         end
       end
