@@ -9,7 +9,7 @@ class DevicesController < ApplicationController
       return
     end
     
-    token = params[:token].downcase
+    token = params[:token]
     platform = params[:platform].downcase
     
     device = Device.find_or_create_by(token: token, platform: platform)
