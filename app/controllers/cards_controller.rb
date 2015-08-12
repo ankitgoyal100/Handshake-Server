@@ -93,7 +93,7 @@ class CardsController < ApplicationController
                 user: current_user.notifications_json_for_user(friendship.user)
               }
             }
-            gcm.send([device.token], data)
+            GCMC.send([device.token], data)
           end
         end
       end
