@@ -58,7 +58,7 @@ class RequestsController < ApplicationController
                 user: current_user.notifications_json_for_user(@user)
               }
             }
-            GCM.send([device.token], data)
+            gcm.send([device.token], data)
           end
         end
       end
@@ -150,7 +150,7 @@ class RequestsController < ApplicationController
                 user: current_user.notifications_json_for_user(@user)
               }
             }
-            GCM.send([device.token], data)
+            gcm.send([device.token], data)
           end
         end
       end

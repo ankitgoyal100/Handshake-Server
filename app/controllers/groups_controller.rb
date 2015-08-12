@@ -167,7 +167,7 @@ class GroupsController < ApplicationController
                 group_id: @group.id
               }
             }
-            GCM.send([device.token], data)
+            gcm.send([device.token], data)
           end
         end
       end
