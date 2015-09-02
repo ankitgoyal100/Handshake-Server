@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   has_many :cards, dependent: :destroy
   
   has_many :friendships, dependent: :destroy
+  has_many :inverse_friendships, class_name: "Friendship", foreign_key: "contact_id", dependent: :destroy
   has_many :contacts, -> { where(friendships: { accepted: true, is_deleted: false }).order('first_name DESC') }, through: :friendships
 
   has_many :group_members, dependent: :destroy
