@@ -29,7 +29,8 @@ class GroupsController < ApplicationController
       @errors = [ 'You are not authorized to do that' ]
       render status: 401
     else
-      @members = group.users.page(params[:page]).where.not(id: current_user.id)
+      #@members = group.users.page(params[:page]).where.not(id: current_user.id)
+      @members = group.users.where.not(id: current_user.id)
     end
   end
   
